@@ -1,0 +1,26 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+{% for message in messages %}
+    <h3>{{message}}</h3>
+   {% endfor %} 
+<form id="create_form" action="{% url 'create' %}" method="POST">
+    {% csrf_token%}
+        <input id="create_input"  class="form-control"  type="text" name="TITLE" placeholder="TITLE">
+        <textarea id="create_input"  class="form-control"  name="DESCRIPTION" id="" cols="30" rows="10" placeholder="DESCRIPTION"></textarea>
+        <select id="create_input"  class="form-control"  name="CATEGORY" id="">
+                <option value="All">CATEGORIES</option>
+                <option value="Men">Men</option>
+                <option value="Women">Women</option>
+                <option value="Kids">Kids</option>
+                <option value="All">All</option>
+        <input id="create_input"  class="form-control"  type="number" name="BID" id="" placeholder="AMOUNT">
+        <input id="create_input"  class="form-control"  type="text" name="IMAGE" placeholder="IMAGE URL">
+        <input id="create_input"  class="form-control"  type="hidden" name="OWNER" id=""value='{{ user.username }}'>
+        <input id="create_input"  class="form-control"  type="hidden" name="BIDGATE" value="OPEN" >
+        <input style="width: 10%;margin-top: 1em;margin-bottom: 1em"  class="form-control btn btn-dark"  type="submit" value="submit">
+</form>
+
+{% endblock %}
+
+

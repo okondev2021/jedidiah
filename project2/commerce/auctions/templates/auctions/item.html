@@ -1,0 +1,107 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<div style="padding-left: 2em" class="item-sec">
+        {% for message in messages %}
+    <div class="alert alert-info alert-dismissible fade show my-4" role="alert"> {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+    </div> 
+    {% endfor %}
+    
+<div   class="container-fluid">
+        <div style="height: 90vh" id="item-row" class="row my-5 ">
+            <div style="height: 100%;" id="col-image"  class="col-md-6 ">
+                <div style="height: 100%;display:flex;justify-content: center" class="item_top ">
+                    <img src="{{listing.IMAGE}}" height="80%" width="500" alt="">
+
+                </div>
+            </div>
+            
+            <div class="col-md-6" id="col-detail">
+                <h3 style="font-weight: bolder">{{listing.TITLE}}</h3>
+                <h6>${{listing.BID}}</h6>
+                <p style="font-weight: bolder">Listed by {{ listing.OWNER}}</p>
+                <p style="font-weight: bolder">Product is under: {{ listing.CATEGORY}}</p>
+                <p style="font-weight: 600" id="product-decz">{{ listing.DESCRIPTION}}</p>
+                <hr style="border: 1px solid black">
+                    {% for biddgates in bidgate %} 
+                    {% for bigate in biddgates %}
+                        {% if bigate == opens %}
+                            <h3>Bid on {{listing.TITLE}}</h3>
+                            {% if max_bidd == None %}
+                                {{high}}
+                            {% else %}
+                                {{high}}
+                            {% endif %}
+                                
+                                {% if listing.OWNER == user.username %}
+                                <form  id="formone" action="{{ listing.id}}" method="POST">
+                                        {% csrf_token %}
+                                    <input class="btn btn-dark" name="close" type="submit" value="Close Bidding">
+                                </form>        
+                                {% else %}
+                                <form  id="formone" action="{{ listing.id}}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="number" name="bidds" id="" placeholder="Place bid">
+                                    <input type="hidden" value="{{ user.username }}" name="bidder">
+                                    <input type="hidden" value="{{ listing.id }}" name="bid_itemno">
+                                    <input class="btn btn-dark"  name="send" type="submit" value="Send">
+                                    <br>
+                                    <br>
+                                    {% if aucadd in nn %}
+                                        <input class="btn btn-dark"  name="addwatchlist" type="submit" value="Remove from watchlist">
+                                    {% else %}
+                                        <input class="btn btn-dark"  name="addwatchlist" type="submit" value="Add to watchlist">
+                                    {% endif %} 
+                                </form>
+          
+                            {% endif %}
+                        {% else %}
+                            {% if listing.OWNER == user.username %}
+                                <p>Thank you for choosing our platform to sel ur product </p>
+                            {% else %}
+                                {% if user.username == max_bid.NAME %}
+                                    <p style="font-weight: bolder">Congratulations you won the bidding </p>
+                                {% else %}
+                                    <p>You can no longer bid on this item</p>
+                                {% endif %} 
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            </div>
+            
+        </div>
+    </div>
+
+    <h3>Leave a comment</h3>
+    <form  id="formtwo" action="{{ listing.id}}" method="post">
+        {% csrf_token %}
+        <textarea style="width: 50%;padding-top: 1em;padding-left: 1em" name="comment" id="" cols="30" rows="10"></textarea><br>
+        <input type="hidden" value="{{ user.username }}" name="user">
+        <input type="hidden" value="{{ listing.id }}" name="item_id">
+        <input class="btn btn-dark" name="btn2" type="submit" value="submit">
+    </form>
+    <hr>
+    <br>
+    <h4>COMMENTS SECTION</h4><br>
+    {% for comment in comments %}
+            <div class="commentbox">
+                {{comment.COMMENT}}
+                <div id="figure" class="blockquote-footer">
+                       by  {{comment.USER}}
+                    </div>
+            </div>
+        {% empty %}
+            <h4>Be the first to comment </h4>
+    {% endfor %}
+        
+    
+    
+    
+    
+</div>
+
+{% endblock %}
+
+

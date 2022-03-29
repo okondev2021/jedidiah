@@ -1,0 +1,24 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+ 
+<h4 style="margin-top: 10px">List of items on your watch list</h4>
+<div class="container-fluid">
+    <div class="row">
+        {% for checked in checks %}
+            <div style="margin-left: 2em" class="col-md-3 my-5">
+                <h1>{{checked.TITLE}}</h1>
+                <p> Listed by: {{checked.OWNER}}</p>
+                <a href="watchlists/{{checked.id}}">Remove from watchlist</a><br> <br>
+                <a class="btn btn-dark" href="{{checked.id}}">VIEW</a>
+            </div>
+        {% empty %}
+            <p>NO ITEM IN YOUR WATCHLIST</p>
+        {% endfor %}
+        <br>
+        <br>
+        <br>
+
+    </div>
+</div>
+{% endblock %}

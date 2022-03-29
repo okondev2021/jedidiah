@@ -1,0 +1,20 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+<div class="container-fluid">
+    <div class="row">
+        {% for categs in categ %}
+        <div class="col-md-4  my-5">
+            <div>
+                <img src="{{categs.IMAGE}}" height="350px" width="100%" alt="">
+            </div>
+            <h2> {{categs.TITLE}}</h2>
+            ${{categs.BID}}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}

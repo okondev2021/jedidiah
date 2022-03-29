@@ -1,0 +1,34 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<div class="top_heading">
+
+    <h2>Active Listings</h2>
+
+</div>
+
+
+<div class="container-fluid">
+<div class="row ">
+    {% for item in Items %}
+        <div id="cols" class="col-md-3 my-4">
+                <div>
+                    <img src="{{item.IMAGE}}" height="250px" width="100%" alt="">
+                </div>
+                <div class="item_detail">
+                    <h5> {{item.TITLE}} </h5>
+                   <p> Bid: ${{item.BID}}</p> 
+                   <p> {{item.DESCRIPTION}}</p>
+                    {% if user.is_authenticated %}
+                        <p><a class="btn btn-dark" href="{{item.id}}">item details</a></p>
+                    {% endif %}
+                </div>
+        </div>
+    {% empty %}
+        <H4>No item in this category yet</H4>
+    {% endfor %}
+</div>
+</div>
+
+
+{% endblock %}

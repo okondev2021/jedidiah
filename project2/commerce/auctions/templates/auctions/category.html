@@ -1,0 +1,19 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+<h1>CATEGORIES</h1>
+<form action="" method="post">
+        <div class="container-fluid">
+                <div class="row">
+                    {% for carts in cart %}
+                        <div style="margin-top: 2em" class="col-md-12">
+                           <a href="category/{{carts}}"> <div class="btn btn-dark btn-lg "> {{carts}}</div></a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+</form>
+{% endblock %}
+
+
